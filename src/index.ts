@@ -1,1 +1,1 @@
-console.log('@TODO: Implement me!')
+export * from './webmanifest'

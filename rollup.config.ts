@@ -19,7 +19,7 @@ export default {
 			sourcemap: true,
 		},
 	],
-	external: [''],
+	external: ['next', '@types/web-app-manifest'],
 	plugins: [
 		del({ targets: path.parse(packageJson.main).dir + '/*' }),
 		resolve(),
