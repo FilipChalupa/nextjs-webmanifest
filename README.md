@@ -13,7 +13,7 @@ npm install nextjs-webmanifest
 Create `app.webmanifest.js` file in your Next.js `pages` directory.
 
 ```js
-import { WebmanifestPage, { createGetServerSideProps } } from 'nextjs-webmanifest'
+import WebmanifestPage, { createGetServerSideProps } from 'nextjs-webmanifest'
 
 export default WebmanifestPage
 
