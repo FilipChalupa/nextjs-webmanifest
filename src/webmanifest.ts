@@ -7,11 +7,15 @@ const WebmanifestPage = () => {
 export default WebmanifestPage
 
 export const createGetServerSideProps = (
-	webmanifestData: WebAppManifest,
+	webmanifestData: WebAppManifest | (() => Promise<WebAppManifest>),
 ): GetServerSideProps => {
 	return async ({ res: response }) => {
+		const data =
+			typeof webmanifestData === 'function'
+				? await webmanifestData()
+				: webmanifestData
 		response.setHeader('Content-Type', 'application/manifest+json')
-		response.write(JSON.stringify(webmanifestData))
+		response.write(JSON.stringify(data))
 		response.end()
 		return {
 			props: {},
