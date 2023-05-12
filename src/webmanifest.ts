@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import type { WebAppManifest } from 'web-app-manifest'
 
 const WebmanifestPage = () => {
@@ -7,12 +7,15 @@ const WebmanifestPage = () => {
 export default WebmanifestPage
 
 export const createGetServerSideProps = (
-	webmanifestData: WebAppManifest | (() => Promise<WebAppManifest>),
+	webmanifestData:
+		| WebAppManifest
+		| ((context: GetServerSidePropsContext) => Promise<WebAppManifest>),
 ): GetServerSideProps => {
-	return async ({ res: response }) => {
+	return async (context) => {
+		const { res: response } = context
 		const data =
 			typeof webmanifestData === 'function'
-				? await webmanifestData()
+				? await webmanifestData(context)
 				: webmanifestData
 		response.setHeader('Content-Type', 'application/manifest+json')
 		response.write(JSON.stringify(data))
