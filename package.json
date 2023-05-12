@@ -1,6 +1,6 @@
 {
 	"name": "nextjs-webmanifest",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Simplify adding webmanifest to your web.",
 	"main": "./dist/index.js",
 	"module": "./dist/index.es.js",
