@@ -10,14 +10,14 @@ npm install nextjs-webmanifest
 
 ## Usage
 
-Create `app.webmanifest.js` file in your Next.js `pages` directory.
+Create `app.webmanifest.js` file in your Next.js `pages/api` directory.
+
+### `pages/api/app.webmanifest.js`
 
 ```js
-import WebmanifestPage, { createGetServerSideProps } from 'nextjs-webmanifest'
+import { createWebmanifestHandler } from 'nextjs-webmanifest'
 
-export default WebmanifestPage
-
-export const getServerSideProps = createGetServerSideProps({
+export default createWebmanifestHandler({
 	name: 'My Super Trouper App',
 	short_name: 'App',
 	start_url: '/',
@@ -30,7 +30,9 @@ export const getServerSideProps = createGetServerSideProps({
 
 And don't forget to add `<link>` to `<Head>` placed usually in your `_document.js` or `_app.js` file.
 
-```js
+### `pages/_document.js`
+
+```jsx
 <Head>
 	<link rel="manifest" href="/app.webmanifest" />
 </Head>
@@ -39,10 +41,9 @@ And don't forget to add `<link>` to `<Head>` placed usually in your `_document.j
 ### Asynchronous
 
 ```js
-export const getServerSideProps = createGetServerSideProps(async (context) => {
-	const response = await fetch(
-		`https://example.com/${context.locale}/manifest.json`,
-	)
+export default createWebmanifestHandler(async (request) => {
+	const locale = request.url.substring(1, 3)
+	const response = await fetch(`https://example.com/${locale}/manifest.json`)
 	const manifest = await response.json()
 	return manifest
 })
