@@ -34,7 +34,7 @@ And don't forget to add `<link>` to `<Head>` placed usually in your `_document.j
 
 ```jsx
 <Head>
-	<link rel="manifest" href="/app.webmanifest" />
+	<link rel="manifest" href="/api/app.webmanifest" />
 </Head>
 ```
 
