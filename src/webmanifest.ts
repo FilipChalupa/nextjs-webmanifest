@@ -12,7 +12,7 @@ export const createWebmanifestHandler =
 	(
 		webmanifestData:
 			| WebAppManifest
-			| ((request: NextApiRequest) => Promise<WebAppManifest>),
+			| ((request: NextApiRequest) => WebAppManifest | Promise<WebAppManifest>),
 	) =>
 		async (request: NextApiRequest, response: NextApiResponse) => {
 			const data =
