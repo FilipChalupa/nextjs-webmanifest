@@ -56,7 +56,7 @@ Create `route.js` file inside your Next.js `app/app.webmanifest` directory and u
 #### `app/app.webmanifest/route.js`
 
 ```js
-import { createWebmanifestHandler } from 'nextjs-webmanifest'
+import { createWebmanifestGET } from 'nextjs-webmanifest'
 
 export const GET = createWebmanifestGET({
 	name: 'My Super Trouper App',
