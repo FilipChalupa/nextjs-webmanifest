@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { WebAppManifest } from 'web-app-manifest'
 
-const fiveMinutes = 60 * 5
+const contentType = 'application/manifest+json'
 
 export const createWebmanifestHandler =
 	(
@@ -14,11 +14,26 @@ export const createWebmanifestHandler =
 			typeof webmanifestData === 'function'
 				? await webmanifestData(request)
 				: webmanifestData
-			response.setHeader(
-				'Cache-control',
-				`stale-while-revalidate, s-maxage=${fiveMinutes}`,
-			)
-			response.setHeader('Content-Type', 'application/manifest+json')
+			response.setHeader('Content-Type', contentType)
 			response.write(JSON.stringify(data))
 			response.end()
 		}
+
+export const createWebmanifestGET = (
+	webmanifestData:
+				| WebAppManifest
+				| ((request: Request) => WebAppManifest | Promise<WebAppManifest>),
+) => {
+	return async (request: Request) => {
+		const data =
+					typeof webmanifestData === 'function'
+						? await webmanifestData(request)
+						: webmanifestData
+		const response = new Response(JSON.stringify(data), {
+			headers: {
+				'Content-Type': contentType,
+			},
+		})
+		return response
+	}
+}

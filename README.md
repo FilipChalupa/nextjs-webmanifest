@@ -10,9 +10,11 @@ npm install nextjs-webmanifest
 
 ## Usage
 
-Create `app.webmanifest.js` file in your Next.js `pages/api` directory.
+### With `pages` directory
 
-### `pages/api/app.webmanifest.js`
+Create `app.webmanifest.js` file inside your Next.js `pages/api` directory and use `createWebmanifestHandler`.
+
+#### `pages/api/app.webmanifest.js`
 
 ```js
 import { createWebmanifestHandler } from 'nextjs-webmanifest'
@@ -28,17 +30,7 @@ export default createWebmanifestHandler({
 })
 ```
 
-And don't forget to add `<link>` to `<Head>` placed usually in your `_document.js` or `_app.js` file.
-
-### `pages/_document.js`
-
-```jsx
-<Head>
-	<link rel="manifest" href="/api/app.webmanifest" />
-</Head>
-```
-
-### Asynchronous
+#### Asynchronous
 
 ```js
 export default createWebmanifestHandler(async (request) => {
@@ -47,4 +39,37 @@ export default createWebmanifestHandler(async (request) => {
 	const manifest = await response.json()
 	return manifest
 })
+```
+
+#### `<head>`
+
+Don't forget to add `<link>` to `<head>` to tell browser where to look for your webmanifest.
+
+```html
+<link rel="manifest" href="/api/app.webmanifest" />
+```
+
+### With `app` directory
+
+Create `route.js` file inside your Next.js `app/app.webmanifest` directory and use `createWebmanifestGET`.
+
+#### `app/app.webmanifest/route.js`
+
+```js
+import { createWebmanifestHandler } from 'nextjs-webmanifest'
+
+export const GET = createWebmanifestGET({
+	name: 'My Super Trouper App',
+	// and more
+})
+```
+
+`createWebmanifestGET` can accept asynchronous function as well.
+
+#### `<head>`
+
+Don't forget to add `<link>` to `<head>` to tell browser where to look for your webmanifest.
+
+```html
+<link rel="manifest" href="/app.webmanifest" />
 ```
