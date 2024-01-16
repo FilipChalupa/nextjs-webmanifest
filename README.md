@@ -73,3 +73,11 @@ Don't forget to add `<link>` to `<head>` to tell browser where to look for your 
 ```html
 <link rel="manifest" href="/app.webmanifest" />
 ```
+
+or
+
+```js
+export const metadata: Metadata = {
+	manifest: '/app.webmanifest',
+}
+```
