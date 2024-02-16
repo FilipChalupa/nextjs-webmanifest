@@ -51,6 +51,6 @@
 		"/dist/"
 	],
 	"dependencies": {
-		"@types/web-app-manifest": "^1.0.3"
+		"@types/web-app-manifest": "^1.0.7"
 	}
 }
